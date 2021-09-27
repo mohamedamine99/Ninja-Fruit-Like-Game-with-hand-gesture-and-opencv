@@ -150,5 +150,49 @@ def distance(a , b):
     d =math.sqrt(pow(x1 -x2,2)+pow(y1-y2,2))
     return int(d)
   ``` 
-  
-  
+```py  
+cap = cv2.VideoCapture(0)           # we set our pc webcam as our input
+while(cap.isOpened()):              # while the webcam is opened
+    success , img = cap.read()      # capture images
+    if not success:
+        print("skipping frame")
+        continue
+    h, w, c = img.shape             # get the dimensions of our image 
+    
+    img = cv2.cvtColor(cv2.flip(img, 1), cv2.COLOR_BGR2RGB)  # we flip the img bc it's initially mirrored and convert it from BGR to RGB in order to process it correctly with mediapipe
+    img.flags.writeable = False     # To improve performance, optionally mark the image as not writeable to pass by reference.
+    results = hands.process(img)    # launch the detection and tracking process on our img and store the results in "results"
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) # reconvert the img to its initial BGR Color space
+    
+    if results.multi_hand_landmarks:                          #if a hand is detected
+        for hand_landmarks in results.multi_hand_landmarks:
+            mp_drawing.draw_landmarks(                        # draw the landmarks 
+                img,
+                hand_landmarks,
+                mp_hands.HAND_CONNECTIONS,
+                mp_drawing_styles.get_default_hand_landmarks_style(),
+                mp_drawing_styles.get_default_hand_connections_style())
+
+            #**************************************************************************************
+            for id , lm in enumerate(hand_landmarks.landmark): 
+                if id == 8:                                       # id = 8 corresponds with the tip of the index finger
+                    index_pos=(int(lm.x * w) ,int(lm.y * h))      # store the position of the index figer
+                    #print("slash",slash_Color)
+                    cv2.circle(img,index_pos,18,slash_Color,-1)   
+                    #slash=np.delete(slash,0)
+                    slash=np.append(slash,index_pos)              # apped the position of the index in a numpy array
+
+                    while len(slash) >= slash_length:             # keep the length of the slash array constant
+                        slash = np.delete(slash , len(slash) -slash_length , 0)
+
+                    for fruit in Fruits:                              
+                        d= distance(index_pos,fruit["Curr_position"])           #calculate the distance between the index finger tip and each of the fruits
+                        cv2.putText(img,str(d),fruit["Curr_position"],cv2.FONT_HERSHEY_SIMPLEX,2,(0,0,0),2,3)
+                        if(d < Fruit_Size):                                     # if distance < size of the fruit the the fruit is "cut"
+                            Score= Score + 100                                  # the score increments by 100
+                            slash_Color = fruit["Color"]                        # the slash takes the color of the last fruit "cut"
+                            Fruits.remove(fruit)                                # remove the fruit that was cut from the list of fruits
+
+
+            #***********************************************************************************************************
+  ```   
