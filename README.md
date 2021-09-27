@@ -62,7 +62,7 @@ mp_hands = mp.solutions.hands
 
 hands = mp_hands.Hands(False,1,0.7,0.5)
  ``` 
-the  `hands = mp_hands.Hands(False,1,0.7,0.5)` line is used to initialize a MediaPipe Hand object.  
+The  `hands = mp_hands.Hands(False,1,0.7,0.5)` line is used to initialize a MediaPipe Hand object.  
 Its arguments are as follows:
 * **static_image_mode:** Whether to treat the input images as a batch of staticand possibly unrelated images, or a video stream. 
 * **max_num_hands:** Maximum number of hands to detect. 
@@ -97,4 +97,21 @@ w=h=0       # to store width and height of the frame
 Fruits=[]   # the list to keep track of the "fruits" on screen
  ``` 
  Now lets create our functions :
+ lets begin with fruit spawning function:
  
+   ```py
+ def Spawn_Fruits():
+    fruit = {}
+    random_x = random.randint(15,600)                                                   # x position of the fruit randomly generated
+    random_color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))  # Colour of the fruit randomly generated
+    cv2.circle(img,(random_x,440),Fruit_Size,random_color,-1)                           # spawning the fruite as a circle on random x position and on a 440 y position
+    fruit["Color"] = random_color                                                       
+    fruit["Curr_position"]=[random_x,440]
+    fruit["Next_position"] = [0,0]
+    Fruits.append(fruit)
+ ``` 
+Each fruit data is represented with a dictionary with the following keys : `"Color"` , `"Curr_position"` ,`"Next_position"` .
+so we can keep track of each fruit after its creation it must be appended to the Fruit list 
+Each fruit is generated at position of a 440 value on the y axis and a random position betwwen 15 and 600 on the x axis
+Each fruit is generated with a random colour of value between 0 and 255 on each of the rgb channels.
+
