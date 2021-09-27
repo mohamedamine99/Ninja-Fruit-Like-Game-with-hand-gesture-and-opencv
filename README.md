@@ -195,4 +195,55 @@ while(cap.isOpened()):              # while the webcam is opened
 
 
             #***********************************************************************************************************
-  ```   
+  
+      if Score % 1000 ==0 and Score != 0:        #each time the score is a multiple of 1000 (1000 , 2000 etc ..)
+        Difficulty_level = (Score / 1000) + 1    # Difficulty level increments by 1 for every 1000 score
+        Difficulty_level= int(Difficulty_level)  # convert it to integer value
+        print(Difficulty_level)
+        Spawn_Rate =  Difficulty_level * 4/5     # Spawn rate increases by 80 %
+        Speed[0] = Speed[0] * Difficulty_level   
+        Speed[1] = int(5 * Difficulty_level /2) # speed increases by 250 %
+        print(Speed)
+
+#*****************************************************************************
+#*****************************************************************************
+
+    if(Lives<=0):  # if u run out of lives the game is over
+        game_Over=True
+
+    slash=slash.reshape((-1,1,2))                     # reshape the slash array in order to draw a polyline a visualize the slash
+    cv2.polylines(img,[slash],False,slash_Color,15,0) # draw the slash
+
+    curr_Frame = time.time()
+    delta_Time = curr_Frame - prev_Frame
+    FPS = int(1/delta_Time)                 #calculating the fps
+    cv2.putText(img,"FPS : " +str(FPS),(int(w*0.82),50),cv2.FONT_HERSHEY_SIMPLEX,0.6,(0,250,0),2)                 #printing the fps on the screen
+    cv2.putText(img,"Score: "+str(Score),(int(w*0.35),90),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),5)                 #printing the score on the screen
+    cv2.putText(img,"Level: "+str(Difficulty_level),(int(w*0.01),90),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,150),5)    #printing the Level on the screen
+    cv2.putText(img,"Lives remaining : " + str(Lives), (200, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)  #printing remaining lives on the screen
+
+
+    prev_Frame = curr_Frame
+
+    #***********************************************************
+    if not (game_Over):                               # if the game is still not over then keep spawning and moving the fruits
+        if  (time.time() > next_Time_to_Spawn):       
+            Spawn_Fruits()
+            next_Time_to_Spawn = time.time() + (1 / Spawn_Rate)
+
+        Fruit_Movement(Fruits,Speed)
+
+
+    else:                                     # if game is over then print it and clear all the fruits
+        cv2.putText(img, "GAME OVER", (int(w * 0.1), int(h * 0.6)), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), 3)
+        Fruits.clear()
+        
+    cv2.imshow("img", img)                    #display the resulting image
+
+    if cv2.waitKey(5) & 0xFF == ord("q"):     # the "q" button to quit
+        break
+
+cap.release()                                 # release the webcam
+cv2.destroyAllWindows()
+
+  ``` 
