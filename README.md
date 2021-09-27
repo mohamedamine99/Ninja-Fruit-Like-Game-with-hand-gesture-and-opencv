@@ -104,14 +104,51 @@ Fruits=[]   # the list to keep track of the "fruits" on screen
     fruit = {}
     random_x = random.randint(15,600)                                                   # x position of the fruit randomly generated
     random_color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))  # Colour of the fruit randomly generated
-    cv2.circle(img,(random_x,440),Fruit_Size,random_color,-1)                           # spawning the fruite as a circle on random x position and on a 440 y position
+    #cv2.circle(img,(random_x,440),Fruit_Size,random_color,-1)                           # uncomment to test the of spawning the fruit as a circle on random x position and on a 440 y position
     fruit["Color"] = random_color                                                       
     fruit["Curr_position"]=[random_x,440]
     fruit["Next_position"] = [0,0]
     Fruits.append(fruit)
  ``` 
-Each fruit data is represented with a dictionary with the following keys : `"Color"` , `"Curr_position"` ,`"Next_position"` .
-so we can keep track of each fruit after its creation it must be appended to the Fruit list 
-Each fruit is generated at position of a 440 value on the y axis and a random position betwwen 15 and 600 on the x axis
-Each fruit is generated with a random colour of value between 0 and 255 on each of the rgb channels.
+* Each fruit data is represented with a dictionary with the following keys : `"Color"` , `"Curr_position"` ,`"Next_position"` .
+* In order to keep track of each fruit after its creation it must be appended to the Fruit list 
+* Each fruit is generated at position of a 440 value on the y axis and a random position between 15 and 600 on the x axis
+* Each fruit is generated with a random colour of value between 0 and 255 on each of the rgb channels.
 
+Now let's move our "fruits":
+
+```py
+def Fruit_Movement(Fruits , speed):
+    global Lives
+
+    for fruit in Fruits:
+        if (fruit["Curr_position"][1]) < 20 or (fruit["Curr_position"][0]) > 650 :
+            Lives = Lives - 1
+            #print(Lives)
+            #print("removed ", fruit)
+            Fruits.remove(fruit)
+
+        cv2.circle(img,tuple(fruit["Curr_position"]),Fruit_Size,fruit["Color"],-1)
+        fruit["Next_position"][0]= fruit["Curr_position"][0] + speed[0] 
+        fruit["Next_position"][1]= fruit["Curr_position"][1] - speed[1] 
+
+        fruit["Curr_position"]=fruit["Next_position"]
+ ``` 
+* For each fruit in our list : we check the position of the fruit :if its y position is below 20 then we decrement the Lives variable.  
+* Each fruit's next position is equals to it's previous position + speed.
+
+Lets get a function to calculate a distance between two 2d points :
+
+```py
+def distance(a , b):
+    x1 = a[0]
+    y1 = a[1]
+
+    x2 = b[0]
+    y2 = b[1]
+
+    d =math.sqrt(pow(x1 -x2,2)+pow(y1-y2,2))
+    return int(d)
+  ``` 
+  
+  
