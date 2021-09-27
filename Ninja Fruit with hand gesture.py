@@ -87,13 +87,6 @@ def distance(a , b):
     d =math.sqrt(pow(x1 -x2,2)+pow(y1-y2,2))
     return int(d)
 
-"""def Game_Over():
-    global Lives
-    global w,h
-    if Lives <=0 :
-        cv2.putText(img,"GAME OVER",(w*0.35,h*0.6),cv2.FONT_HERSHEY_SIMPLEX,5,(0,0,255),3)"""
-
-
 cap = cv2.VideoCapture(0)
 while(cap.isOpened()):
     success , img = cap.read()
@@ -121,7 +114,7 @@ while(cap.isOpened()):
                     index_pos=(int(lm.x * w) ,int(lm.y * h))
                     #print("slash",slash_Color)
                     cv2.circle(img,index_pos,18,slash_Color,-1)
-                    #slash=np.delete(slash,0)
+                    
                     slash=np.append(slash,index_pos)
 
                     while len(slash) >= slash_length:
@@ -161,10 +154,10 @@ while(cap.isOpened()):
    # print(time.time())
 
 
-    #Game_Over()
+   
     slash=slash.reshape((-1,1,2))
     cv2.polylines(img,[slash],False,slash_Color,15,0)
-    #img = cv2.cvtColor(img,cv2.COLOR_RGB2BGR)
+    
 
     #print(h,w,c)
 
