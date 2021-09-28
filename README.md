@@ -1,5 +1,8 @@
 # Ninja-Fruit-Like-Game-with-hand-gesture-and-opencv
 
+![results_1](https://github.com/mohamedamine99/Ninja-Fruit-Like-Game-with-hand-gesture-and-opencv/blob/main/results_1.gif)
+
+
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
@@ -263,6 +266,8 @@ cv2.destroyAllWindows()
 
   ``` 
   ## Results:
+  
+  ![results](https://github.com/mohamedamine99/Ninja-Fruit-Like-Game-with-hand-gesture-and-opencv/blob/main/results.gif)
   
   ## Conclusion and perspective:
   
