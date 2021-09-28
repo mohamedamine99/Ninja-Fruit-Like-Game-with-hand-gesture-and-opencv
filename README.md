@@ -12,8 +12,7 @@
       </ul>
     </li>
     <li><a href="#software-implementation">Software implementation</a></li>
-    <li><a href="#executing-the-program">Executing the program</a></li>
-    <li><a href="#making-an-upgrade">Making an upgrade</a></li>
+    <li><a href="#results">Results</a></li>
     <li><a href="#conclusion-and-perspective">Conclusion and perspective</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -42,7 +41,7 @@ In this project , I have made use of a robust hand and finger tracking system ,w
 **NB**: All these packages need to be installed properly.
 
 ## Software implementation:
-
+For more details check this [Mediapipe hand tracking documentation](https://google.github.io/mediapipe/solutions/hands).
 Now let's get to our code:  
 Let's begin with importing the required packages
 
@@ -150,6 +149,9 @@ def distance(a , b):
     d =math.sqrt(pow(x1 -x2,2)+pow(y1-y2,2))
     return int(d)
   ``` 
+  ![image](https://user-images.githubusercontent.com/86969450/135001062-22d313a7-43c4-4cb2-be10-9233960c599f.png)
+
+  
 ```py  
 cap = cv2.VideoCapture(0)           # we set our pc webcam as our input
 while(cap.isOpened()):              # while the webcam is opened
@@ -247,3 +249,16 @@ cap.release()                                 # release the webcam
 cv2.destroyAllWindows()
 
   ``` 
+  ## Results:
+  
+  ## Conclusion and perspective:
+  
+  ### Contact:
+* Mail : mohamedamine.benabdeljelil@insat.u-carthage.tn -- mohamedaminebenjalil@yahoo.fr
+* Linked-in profile: https://www.linkedin.com/in/mohamed-amine-ben-abdeljelil-86a41a1a9/
+
+### Acknowledgements:
+* Google developers for making the [Mediapipe hand tracking module](https://google.github.io/mediapipe/solutions/hands)
+* OpenCV team for making the awesome [Opencv Library](https://opencv.org/)
+* [NumPy Team](https://numpy.org/gallery/team.html) for making the [Numpy Library](https://numpy.org/about/)
+  
