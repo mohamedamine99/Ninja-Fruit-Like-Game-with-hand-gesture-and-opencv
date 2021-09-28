@@ -10,8 +10,12 @@
         <li><a href="#python-environment">Python environment</a></li>
         <li><a href="#packages">Packages</a></li>
       </ul>
-    </li>
+    </li>      
     <li><a href="#software-implementation">Software implementation</a></li>
+      <ul>
+        <li><a href="#hand-landmark-model">Hand Landmark Model</a></li>
+        <li><a href="#python-implementation">Python implementation</a></li>  
+      </ul>
     <li><a href="#results">Results</a></li>
     <li><a href="#conclusion-and-perspective">Conclusion and perspective</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -41,7 +45,16 @@ In this project , I have made use of a robust hand and finger tracking system ,w
 **NB**: All these packages need to be installed properly.
 
 ## Software implementation:
+### Hand Landmark Model:
 For more details check this [Mediapipe hand tracking documentation](https://google.github.io/mediapipe/solutions/hands).
+![image](https://user-images.githubusercontent.com/86969450/135113891-c741aa31-7ef7-4a6b-8967-398a2bc003f8.png)  
+
+Following palm detection over the entire image, the hand landmark model uses regression to accomplish exact keypoint localization of 21 3D hand-knuckle coordinates within the detected hand regions, i.e. direct coordinate prediction.
+
+Concerning the MULTI_HAND_LANDMARKS: 
+Collection of detected/tracked hands, where each hand is represented as a list of 21 hand landmarks and each landmark is composed of x, y and z. x and y are normalized to [0.0, 1.0] by the image width and height respectively. z represents the landmark depth with the depth at the wrist being the origin, and the smaller the value the closer the landmark is to the camera. The magnitude of z uses roughly the same scale as x.
+
+### Python implementation:
 Now let's get to our code:  
 Let's begin with importing the required packages
 
