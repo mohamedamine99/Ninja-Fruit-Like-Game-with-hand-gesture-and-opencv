@@ -20,7 +20,7 @@
         <li><a href="#python-implementation">Python implementation</a></li>  
       </ul>
     <li><a href="#results">Results</a></li>
-    <li><a href="#conclusion-and-perspective">Conclusion and perspective</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
        
@@ -269,7 +269,8 @@ cv2.destroyAllWindows()
   
   ![results](https://github.com/mohamedamine99/Ninja-Fruit-Like-Game-with-hand-gesture-and-opencv/blob/main/results.gif)
   
-  ## Conclusion and perspective:
+  ## Conclusion:
+In this project, we successfullty detected and tracked a hand and its landmarks ,using the mediapipe module, and were able to extract data in order to create an interactive hand gesture mini-game with basic gameplay features such as  score , difficulty level and losing conditions.
   
   ### Contact:
 * Mail : mohamedamine.benabdeljelil@insat.u-carthage.tn -- mohamedaminebenjalil@yahoo.fr
