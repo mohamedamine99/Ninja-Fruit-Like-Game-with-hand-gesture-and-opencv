@@ -149,8 +149,7 @@ def distance(a , b):
     d =math.sqrt(pow(x1 -x2,2)+pow(y1-y2,2))
     return int(d)
   ``` 
-  ![image](https://user-images.githubusercontent.com/86969450/135001062-22d313a7-43c4-4cb2-be10-9233960c599f.png)
-
+Now let's get to the main part of the code:
   
 ```py  
 cap = cv2.VideoCapture(0)           # we set our pc webcam as our input
@@ -178,8 +177,9 @@ while(cap.isOpened()):              # while the webcam is opened
             #**************************************************************************************
             for id , lm in enumerate(hand_landmarks.landmark): 
                 if id == 8:                                       # id = 8 corresponds with the tip of the index finger
-                    index_pos=(int(lm.x * w) ,int(lm.y * h))      # store the position of the index figer
-                    #print("slash",slash_Color)
+                    index_pos=(int(lm.x * w) ,int(lm.y * h))      # store the position of the index figer along the x and y axis
+                                                                  # each hand is represented as a list of 21 hand landmarks and each landmark is composed of x, y and z. x and y are normalized to [0.0, 1.0] by the image width and height respectively. 
+                                                                  #so in order to get the correct position we mutiply the x and y by the width and height of our image
                     cv2.circle(img,index_pos,18,slash_Color,-1)   
                     #slash=np.delete(slash,0)
                     slash=np.append(slash,index_pos)              # apped the position of the index in a numpy array
